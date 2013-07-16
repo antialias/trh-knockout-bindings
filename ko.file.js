@@ -2,6 +2,12 @@ define(['knockout'], function (ko) {
 	var windowURL = window.URL || window.webkitURL;
 	ko.bindingHandlers.file = {
 	    init: function(element, valueAccessor) {
+	        if (window.FormData === undefined) {
+	            $(element).change(function() {
+	        		console.error("ko.file.js requires browser support for the file API");
+	        	});
+	        	return;
+	        }
 	        $(element).change(function() {
 	            var file = this.files[0];
 	            if (ko.isObservable(valueAccessor())) {
@@ -10,6 +16,9 @@ define(['knockout'], function (ko) {
 	        });
 	    },
 	    update: function(element, valueAccessor, allBindingsAccessor) {
+	        if (window.FormData === undefined) {
+	        	return;
+	        }
 	        var file = ko.utils.unwrapObservable(valueAccessor());
 	        var bindings = allBindingsAccessor();
 
