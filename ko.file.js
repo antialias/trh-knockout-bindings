@@ -22,7 +22,8 @@ define(['knockout'], function (ko) {
 	        var file = ko.utils.unwrapObservable(valueAccessor());
 	        var bindings = allBindingsAccessor();
 
-	        if (bindings.fileObjectURL && ko.isObservable(bindings.fileObjectURL)) {
+			var ignoreFile = typeof file == "object" && file.ignore;
+	        if (!ignoreFile && bindings.fileObjectURL && ko.isObservable(bindings.fileObjectURL)) {
 	            var oldUrl = bindings.fileObjectURL();
 	            if (oldUrl) {
 	                windowURL.revokeObjectURL(oldUrl);
