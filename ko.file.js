@@ -23,6 +23,9 @@ define(['knockout'], function (ko) {
 	        var bindings = allBindingsAccessor();
 
 			var ignoreFile = typeof file == "object" && file.ignore;
+			if (!file) {
+				return;
+			}
 	        if (!ignoreFile && bindings.fileObjectURL && ko.isObservable(bindings.fileObjectURL)) {
 	            var oldUrl = bindings.fileObjectURL();
 	            if (oldUrl) {
